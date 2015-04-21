@@ -1,105 +1,62 @@
-# Conky settings #
-background yes
+alignment bm
+cpu_avg_samples 1
+net_avg_samples 1
 update_interval 1
-double_buffer yes
-no_buffers yes
-imlib_cache_size 10
-
-# Window specifications #
-gap_x 10
+default_color white
+default_outline_color white
+default_shade_color white
+draw_borders no
+draw_shades no
+draw_graph_borders no
+draw_outline no
+border_width 0
+gap_x 0
 gap_y 0
-minimum_size 268 1420
-maximum_width 268
-alignment top_right
+use_xft yes
+xftfont noto-12
+xftalpha 0.8
 own_window yes
+own_window_class Conky
 own_window_type normal
 own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 own_window_argb_visual yes
-own_window_argb_value 255
-own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
-#own_window_type normal
-#own_window_transparent no
-#own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
-#own_window_argb_visual yes
-#own_window_argb_value 0
-border_inner_margin 0
-border_outer_margin 0
+use_spacer left
+double_buffer yes
+no_buffers yes
+total_run_times 0
+background yes
+lua_load ~/.conky/draw_bg.lua
+lua_draw_hook_pre draw_bg
 
-# Graphics settings #
-draw_shades yes
-default_shade_color AAAAAA
-draw_outline no
-default_outline_color AAAAAA
-draw_borders no
-draw_graph_borders no
-default_graph_size 26 80
-show_graph_scale no
-show_graph_range no
-
-# Text settings #
-use_xft yes
-xftalpha 0
-xftfont Sans:size=10
-text_buffer_size 256
-override_utf8_locale yes
-
-# Useful shortenings #
-short_units yes
-pad_percents 2
-top_name_width 30
-
-# Color scheme #
-default_color FFFFFF
-color1 FFFFFF
-color2 FFFFFF
-color3 FFFFFF
-color4 FFFFFF
-color5 DCDCDC
-color6 FFFFFF
-color7 FFFFFF
-color8 FFFFFF
+# Solarized colors
+default_color 586e75
+color1 657b83
+color2 839496
+color3 93a1a1
+color4 B58900
+color5 dc322f
+color6 6c71c4
+color7 268bd2
+color8 2aa198
+color9 859900
 
 TEXT
-${alignc}${font Sans:bold:size=20}${time %B, %e}${font}
-${alignc}${font Sans:bold:size=18}${time %T}${font}
-
-${font Mono:Italic:size=12}${execi 120 fortune -s | fold -w26}${font}
-
-${font sans-serif:bold:size=8}INFO ${hr 4}${font}
-${color1}Hostname ${alignr} ${color} ${nodename}
-${color1}${sysname} ${alignr} ${color} ${kernel}-${machine}
-${color1}Uptime ${alignr}${color} ${uptime}
-${color1}Battery ${color} (${battery}) ${battery_bar}
-
-${font sans-serif:bold:size=8}PROCESSORS ${hr 4}${font}
-CPU1: ${cpu cpu1}% $alignr ${exec awk '/cpu MHz/{i++}i==1{printf "%.f",$4; exit}' /proc/cpuinfo} MHz ${cpubar cpu1 8,60}
-${cpugraph cpu1 800000 FF0000 -l -t}
-CPU2: ${cpu cpu2}% $alignr ${exec awk '/cpu MHz/{i++}i==2{printf "%.f",$4; exit}' /proc/cpuinfo} MHz ${cpubar cpu2 8,60}
-${cpugraph cpu2 008000 00FF00 -l -t}
-CPU3: ${cpu cpu3}% $alignr ${exec awk '/cpu MHz/{i++}i==3{printf "%.f",$4; exit}' /proc/cpuinfo} MHz ${cpubar cpu3 8,60}
-${cpugraph cpu3 000080 0000FF -l -t}
-CPU4: ${cpu cpu4}% $alignr ${exec awk '/cpu MHz/{i++}i==4{printf "%.f",$4; exit}' /proc/cpuinfo} MHz ${cpubar cpu4 8,60}
-${cpugraph cpu4 808000 FFFF00 -l -t}
-${color1}Temperature ${alignr} ${color} ${acpitemp} °C
-
-${font sans-serif:bold:size=8}MEMORY ${hr 4}${font}
-$mem / $memmax ($memperc %) $membar
-${memgraph 4B0082 8A2BE2 -l -t}
-
-${font sans-serif:bold:size=8}I/O ${hr 4}${font}
-$fs_used / $fs_size ($fs_used_perc %) $fs_bar
-${diskiograph 8B4513 FFDAB9 -l -t}
-Read: $diskio_read Write: $diskio_write Total: $diskio
-
-${font sans-serif:bold:size=8}NETWORK ${hr 4}${font}
-${if_existing /proc/net/route wlan0}${color1}IP ${alignr} ${color} ${addr wlan0} ${else} ${if_existing /proc/net/route wlan0} ${color1} IP ${alignr} ${color} ${addr eth0} ${endif} ${endif}
-${if_existing /proc/net/route wlan0}
-${upspeedgraph wlan0 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph wlan0 26,80 FFFFFF FFFFFF}
-${color5}Up: ${color2}${upspeed wlan0}${color5}${goto 150}Down: ${color2}${downspeed wlan0}
-${color5}Sent: ${color2}${totalup wlan0}${color5}${goto 150}Received: ${color2}${totaldown wlan0}
-${endif}
-${if_existing /proc/net/route eth0}
-${upspeedgraph eth0 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph eth0 26,80 FFFFFF FFFFFF}
-${color5}Up: ${color2}${upspeed eth0}${color5}${goto 150}Down: ${color2}${downspeed eth0}
-${color5}Sent: ${color2}${totalup eth0}${color5}${goto 150}Received: ${color2}${totaldown eth0}
-${endif}
+${color}${time %d/%m/%y}${color3} ${time %H:%M} ${color}${time %A} \
+${color3}UP ${color}$uptime \
+${color3}CPU1 ${color}${if_match ${cpu cpu1}>40}${color4}${endif}${if_match ${cpu cpu1}>80}${color5}${endif}${cpu cpu1}% \
+${color3}CPU2 ${color}${if_match ${cpu cpu2}>40}${color4}${endif}${if_match ${cpu cpu2}>80}${color5}${endif}${cpu cpu2}% \
+${color3}CPU3 ${color}${if_match ${cpu cpu3}>40}${color4}${endif}${if_match ${cpu cpu3}>80}${color5}${endif}${cpu cpu3}% \
+${color3}CPU4 ${color}${if_match ${cpu cpu4}>40}${color4}${endif}${if_match ${cpu cpu4}>80}${color5}${endif}${cpu cpu4}% \
+${color3}TEMP${color}${if_match ${acpitemp}>60}${color4}${endif}${if_match ${acpitemp}>80}${color5}${endif}${acpitemp}°C \
+${color3}RAM ${color}${if_match ${memperc}>60}${color4}${endif}${if_match ${memperc}>80}${color5}${endif}$mem$color \
+${color3}SWAP ${color}${if_match ${swapperc}>60}${color4}${endif}${if_match ${swapperc}>80}${color5}${endif}$swap$color \
+${color3}FS ${color}${if_match ${fs_used_perc}>60}${color4}${endif}${if_match ${fs_used_perc}>80}${color5}${endif}$fs_used_perc%$color ${fs_free} \
+${if_existing /proc/net/route eth0} \
+${color3}IP ${color}${addr eth0} \
+${color3}Down${color} ${downspeed eth0} \
+${color3}Up${color} ${upspeed eth0}\
+${else}${if_up wlan0}\
+${color3}IP ${color}${addr wlan0} \
+${color3}Down${color} ${downspeed wlan0} \
+${color3}UP${color} ${upspeed wlan0}${endif}

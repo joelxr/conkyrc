@@ -1,7 +1,5 @@
-Conky configuration file
-========================
-
-This is my Conky configuration files. 
+Hello, this is my Conky configuration files.
+It aims to be a simple and minimalistic setup and supply more wanted information.
 
 ![Conky](https://raw.github.com/zenzire/conkyrc/master/screenshot.png)
 
@@ -12,7 +10,7 @@ Installation
 Fetch the configuration files from GitHub repository:
 
 ``
-$ git clone git://github.com/zenzire/conkyrc.git ~/.conky
+$ git clone git://github.com/joelxr/conkyrc.git ~/.conky
 ``
 
 Create link:
@@ -22,13 +20,3 @@ ln -s ./conky/conkyrc ~/.conkyrc
 ``
 
 Enjoy!
-
-Features
---------
-
-* weather with forecast
-* CPU graph
-* memory graph
-* network graph
-* processes 
-
