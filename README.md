@@ -1,7 +1,7 @@
 Hello, this is my Conky configuration files.
 It aims to be a simple and minimalistic setup and supply more wanted information.
 
-![Conky](https://raw.github.com/zenzire/conkyrc/master/screenshot.png)
+![Conky](https://raw.github.com/joelxr/conkyrc/master/screenshot.png)
 
 
 Installation
